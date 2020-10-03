@@ -84,21 +84,7 @@ class current_account extends account
 
     public void add_beneficiary() throws NumberFormatException,IOException
     {
-        //THe idea is pretty clear ,We will first ask the user,if he/she  knows about the beneficiary,if yes then we will ask the name of the person and will add his/her as a beneficairy.
-
-
-       System.out.println("\nSo you want to add beneficiary, We hope you know what does beneficiary means, if you know then continue else if you want to know meaning of beneficiary press 1"); 
-       int temp=Integer.parseInt(br.readLine());
-       if(temp==1)
-       {
-           System.out.println("The person to whom the payment is to be made needs to be added as a 'beneficiary' and his bank account details provided in order to transfer the funds. These include the name of the beneficiary account holder, account number, bank and branch name, and the IFSC code of the beneficiary bank branch");
-           System.out.println("Do you still want someone to be your beneficiary then continue and press other digit than 1,if not then kindly press 1");
-           System.out.print("Enter name of beneficiary  ");
-           temp=Integer.parseInt(br.readLine());
-           System.out.println("\n");
-           if(temp==1)
-           return ;
-       }
+       System.out.println("Enter name of beneficiary");
        String x=br.readLine();
        beneficiary=x;
     }
@@ -170,12 +156,12 @@ class current_account extends account
 
 
         //This will keep asking the date until the date entered by the user is not legit.
-        var=Integer.parseInt(curr.substring(0,2))>31||Integer.parseInt(curr.substring(0,2))<0||Integer.parseInt(curr.substring(3,5))>12||Integer.parseInt(curr.substring(3,5))<0||Integer.parseInt(curr.substring(6))>current_year||Integer.parseInt(curr.substring(6))<0;
+        var=Integer.parseInt(curr.substring(0,2))>31||Integer.parseInt(curr.substring(0,2))<0||Integer.parseInt(curr.substring(3,5))>12||Integer.parseInt(curr.substring(3,5))<0||Integer.parseInt(curr.substring(6))<current_year||Integer.parseInt(curr.substring(6))<0;
         while(var==true)
         {
             System.out.println("Date not valid,enter again");
             open=br.readLine();
-            var=Integer.parseInt(curr.substring(0,2))>31||Integer.parseInt(curr.substring(0,2))<0||Integer.parseInt(curr.substring(3,5))>12||Integer.parseInt(curr.substring(3,5))<0||Integer.parseInt(curr.substring(6))>current_year||Integer.parseInt(curr.substring(6))<0;
+            var=Integer.parseInt(curr.substring(0,2))>31||Integer.parseInt(curr.substring(0,2))<0||Integer.parseInt(curr.substring(3,5))>12||Integer.parseInt(curr.substring(3,5))<0||Integer.parseInt(curr.substring(6))<current_year||Integer.parseInt(curr.substring(6))<0;
         }
 
 
@@ -209,6 +195,25 @@ class current_account extends account
 public class project{
 
 public static void main(String[] args) {
+    try
+    {
+    current_account obj=new current_account("naman","Naman Kalra", "Naman","Nam","aadhar card","201951099@iiitvadodara.ac.in", "9817636188");
+    obj.add_money(1000);
+    obj.debit_money();
+    obj.balance_enquiry();
+    obj.close_account();
+    obj.request_for_necessary_conditions();
+    obj.add_beneficiary();
+    }
+    catch(IOException e)
+    {
+        System.out.println("Exception caught is "+e.getMessage());
+    }
+    catch(NumberFormatException e)
+    {
+        System.out.println("Exception caught is "+e.getMessage());
+    }
+
 
   
  } 
