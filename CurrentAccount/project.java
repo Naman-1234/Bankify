@@ -4,13 +4,12 @@ import java.lang.*;
 
 abstract class account
 {
+    static int customer_count=0;
     String name;
-    String email;
     String phone_number;
-    String sign;
     String password;
     String username;
-    String id_proof;
+    int id;
     abstract void add_money(double x)throws IOException;
     abstract void debit_money()throws IOException;
     abstract void add_beneficiary()throws IOException;
@@ -19,15 +18,16 @@ abstract class account
     abstract void balance_enquiry()throws IOException;
 }
 
-
+ 
 class current_account extends account
 {
     //Making an object of Buffer reader for quick input.
     BufferedReader br=new BufferedReader(new InputStreamReader(System.in));
+    private static Scanner sc;
 
     //Declaring some private variables,so as to make them accessible inside methods only and not globally
-    private static double curr_balance=0;
-    private static String beneficiary="None";
+    private double curr_balance=0;
+    private String beneficiary="None";
     private static double rate_of_interest=0.0015;
     private static double minimum_balance=0;
 
@@ -37,35 +37,68 @@ class current_account extends account
 
     }
     //Below is the parametrized constructor.
-    public current_account(String password,String name,String username,String sign,String id_proof,String email,String phone_number)
+    public current_account(String name,String password,String phone_number) throws IOException
     {
-    this.password=password;
-    this.name=name;
-    this.username=username;
-    this.email=email;
-    this.id_proof=id_proof;
-    this.phone_number=phone_number;
-    this.sign=sign;
-    }
+    customer_count+=1;
+    // this.password=password;
+    // this.name=name;
+    // this.username=name+id;
+    // this.id=customer_count;
+    // this.phone_number=phone_number;
 
+
+
+
+    FileWriter fw=new FileWriter("data.txt",true);
+    BufferedWriter bw=new BufferedWriter(fw);
+
+
+
+    bw.write(name+"     ");
+    bw.write(username+" ");
+    bw.write(password+"     ");
+    bw.write(id+"     ");
+    bw.write(phone_number+" ");
+    bw.write(curr_balance+"\n");
+
+
+
+    bw.close();
+    fw.close();
+    }
+    public void helper_add_money(double editValue,double x) throws NumberFormatException,IOException
+    {
+        while(true)
+        {
+            if(x>0)
+            {
+                curr_balance+=x;
+                FileWriter fw=new FileWriter("data.txt",true);
+                BufferedWriter bw=new BufferedWriter(fw);
+                sc=new Scanner(new File("data.txt"));
+                sc.useDelimiter("[\n]");
+                while(sc.hasNext())
+                {
+                String temp=sc.next();
+                if(temp.contains("Naman"))
+                System.out.println(1);
+                System.out.println(temp);
+                }
+                bw.close();
+                fw.close();
+                break;
+            }
+            else
+            System.out.println("You can only enter positive values");
+        }   
+    }
     //Below is the method for adding money.
     public void add_money(double x)throws NumberFormatException,IOException
     {
-        
-    if(x<=0)
-    {
-        //In this ,what I am doing is that if the user enters -ve value then we will ask if in real,he/she wants to debit instead of add.
-        System.out.println("You can only add positive value,if you want to debit money press 1 ");
-        int temp=Integer.parseInt(br.readLine());
-        if(temp==1)
-        {
-        debit_money();
-        return ;
-        }
+        helper_add_money(this.curr_balance, x);
     }
-    curr_balance+=x;
-     
-}
+
+
     public void debit_money() throws NumberFormatException,IOException
     {
     //In this , what I am doing is amount will be debited if amount entered is less than the current amount in bank.
@@ -192,18 +225,19 @@ class current_account extends account
 } 
 
 
-public class project{
+public class project
+{
 
 public static void main(String[] args) {
     try
     {
-    current_account obj=new current_account("naman","Naman Kalra", "Naman","Nam","aadhar card","201951099@iiitvadodara.ac.in", "9817636188");
-    obj.add_money(1000);
-    obj.debit_money();
-    obj.balance_enquiry();
-    obj.close_account();
-    obj.request_for_necessary_conditions();
-    obj.add_beneficiary();
+    current_account obj=new current_account("Naman","admin","9817636188");
+    obj.add_money(1000.1);
+    // obj.debit_money();
+    // obj.balance_enquiry();
+    // obj.close_account();
+    // obj.request_for_necessary_conditions();
+    // obj.add_beneficiary();
     }
     catch(IOException e)
     {
@@ -213,8 +247,5 @@ public static void main(String[] args) {
     {
         System.out.println("Exception caught is "+e.getMessage());
     }
-
-
-  
  } 
 }
