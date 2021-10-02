@@ -1,4 +1,4 @@
-<h1 align="center">Bank Management System</h1>
+<h1 align="center">Bankify</h1>
 
 # Table of Contents
 - Introduction
