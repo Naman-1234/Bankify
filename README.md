@@ -5,7 +5,7 @@
 - Features and Details
 - Inspiration
 - Problems it solves
-- Designing Diagrams
+- Low Level Design Diagrams
 - Glimpse of the Project
 
 ## Introduction
@@ -82,7 +82,8 @@ Through our System user can:
  Most important thing is we are providing authentication by providing an 
 unique id and username, password to user, so that only he/she can access it
 
-## Designing Diagrams:
+## Designing Diagrams: 
+Here, All the low level design diagrams are shown, Using them we got a better glimpse of the software system.
 1. Use case Diagram:
 <p align="center">
 <img src="https://user-images.githubusercontent.com/63748249/125192066-6c353c80-e263-11eb-9c17-6917b905e089.jpg" alt="useCase diagram">
